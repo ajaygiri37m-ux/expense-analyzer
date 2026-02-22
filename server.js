@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -8,13 +10,32 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("frontend"));
 
+/* ======================
+   MYSQL CONNECTION (RAILWAY SAFE)
+====================== */
+
+if(!process.env.MYSQL_URL){
+  console.error("❌ MYSQL_URL NOT FOUND IN ENV");
+}
+
 const db = mysql.createPool(process.env.MYSQL_URL);
+
+// Optional startup test (helps debugging)
+db.getConnection((err, conn)=>{
+  if(err){
+    console.error("❌ DATABASE CONNECTION FAILED:", err.message);
+  } else {
+    console.log("✅ DATABASE CONNECTED");
+    conn.release();
+  }
+});
 
 /* ======================
    HELPER
 ====================== */
+
 function handleError(res, err){
-  console.error(err);
+  console.error("DB ERROR:",err);
   res.status(500).json({error:"Database error"});
 }
 
@@ -165,5 +186,12 @@ app.get('/balance',(req,res)=>{
 
 });
 
+/* ======================
+   START SERVER
+====================== */
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running on " + PORT));
+
+app.listen(PORT, () => {
+  console.log("🚀 Server running on port " + PORT);
+});
