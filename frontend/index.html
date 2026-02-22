@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Finance Analyzer</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+<span class="menu-btn" onclick="openSidebar()">☰</span>
+Finance Analyzer
+</header>
+
+<!-- ===== SIDEBAR ===== -->
+<div id="sidebar" class="sidebar">
+<a onclick="showSection('dashboard')">Dashboard</a>
+<a onclick="showSection('tracker')">Tracker</a>
+<a onclick="showSection('analytics')">Analytics</a>
+<a onclick="closeSidebar()">Close</a>
+</div>
+
+<div class="content">
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="section">
+
+<h1>Dashboard</h1>
+
+<h2 id="balance-total">Balance ₹0</h2>
+<p id="income-total">Income ₹0</p>
+<p id="expense-total">Expenses ₹0</p>
+
+<h3>Add Expense</h3>
+<form id="expense-form">
+
+<input id="category" placeholder="Category" required>
+<input id="amount" type="number" placeholder="Amount" required>
+<input id="date" type="date" required>
+<input id="note" placeholder="Note">
+
+<button>Add Expense</button>
+
+</form>
+
+<h3>Add Income</h3>
+<form id="income-form">
+
+<input id="source" placeholder="Source" required>
+<input id="income-amount" type="number" placeholder="Amount" required>
+<input id="income-date" type="date" required>
+<input id="income-note" placeholder="Note">
+
+<button>Add Income</button>
+
+</form>
+
+</div>
+
+<!-- ================= TRACKER ================= -->
+
+<div id="tracker" class="section" style="display:none;">
+
+<h2>Expense Records</h2>
+<ul id="expense-list"></ul>
+
+<h2>Income Records</h2>
+<ul id="income-list"></ul>
+
+</div>
+
+<!-- ================= ANALYTICS ================= -->
+
+<div id="analytics" class="section" style="display:none;">
+
+<h1>Analytics Dashboard</h1>
+
+<!-- BAR -->
+<div class="chart-container">
+<canvas id="incomeExpenseChart"></canvas>
+</div>
+
+<!-- PIE -->
+<div class="chart-container">
+<canvas id="expenseCategoryChart"></canvas>
+</div>
+
+<!-- FILTER FOR TREND -->
+<h3>Financial Trend</h3>
+
+<select id="filter">
+<option value="weekly">Weekly</option>
+<option value="monthly" selected>Monthly</option>
+<option value="yearly">Yearly</option>
+</select>
+
+<!-- LINE -->
+<div class="chart-container">
+<canvas id="trendChart"></canvas>
+</div>
+
+<!-- HISTOGRAM -->
+<div class="chart-container">
+<canvas id="expenseHistogram"></canvas>
+</div>
+
+</div>
+
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
