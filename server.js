@@ -12,10 +12,11 @@ app.use(express.static("frontend"));
    MYSQL POOL (PRO VERSION)
 ====================== */
 const db = mysql.createPool({
-  host:'localhost',
-  user:'root',
-  password:'root123',
-  database:'expense_tracker',
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
   waitForConnections:true,
   connectionLimit:10
 });
