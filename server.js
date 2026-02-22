@@ -8,11 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("frontend"));
 
-const db = mysql.createPool({
-  uri: process.env.MYSQL_URL,
-  waitForConnections: true,
-  connectionLimit: 10
-});
+const db = mysql.createPool(process.env.MYSQL_URL);
 
 /* ======================
    HELPER
